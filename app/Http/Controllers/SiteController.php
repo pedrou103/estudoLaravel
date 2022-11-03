@@ -6,41 +6,30 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-    //
-    public function index()
-    {
-        // Aqui eu poderia criar uma lógica
-        // verificar se um usuário existe, buscar dados de um usuário
+    public function index() {
 
-        // $id = 1;
-        $nome = 'Pedro';
-        // $idade = 21;
-        // $sobrenome = 'Moreira';
-        // $data_nascimento = '18/05/2001';
+        $pessoas = [
+            [
+                'image' => 'https://i.pravatar.cc/150?img='.rand(0,50),
+                'nome' => 'Alessandro',
+                'birth' => '29/01/90',
+                'idade' => 29],
 
-        $data = [
-            // 'id' => $id,
-            'name' => $nome
-            // 'age' => $idade,
-            // 'sobrenome' => $sobrenome,
-            // 'data_nasc' => $data_nascimento
+              [
+                'image' => 'https://i.pravatar.cc/150?img='.rand(0,50),
+                'nome' => 'Bonieky',
+                'birth' => '10/11/1933',
+                'idade' => 90],
+
+              [
+                'image' => 'https://i.pravatar.cc/150?img='.rand(0,50),
+                'nome' => 'Maria',
+                'birth' => '01/01/2020',
+                'idade' => 2]
         ];
 
-        return view('bemvindo', $data);
-    }
+        $dados['pessoas'] = $pessoas;
 
-    public function exit()
-    {
-
-        return view('sair');
-    }
-
-    public function users(Request $r)
-    {
-        $data = [
-            'quantidade' => $r->qnt
-        ];
-
-        return view('usuarios', $data);
+        return view('bemvindo', $dados);
     }
 }
