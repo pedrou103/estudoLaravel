@@ -4,8 +4,5 @@ use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'index'] );
-
-// Route::get('/', function () {
-//     return 'ainda tô no router';
-//     // return view('bemvindo');
-// });
+Route::get('/sair', [SiteController::class, 'exit'] );
+Route::get('/users/{qnt}', [SiteController::class, 'users']);
