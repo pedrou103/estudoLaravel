@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
+            //id do registro, autoincrement e primary-key
             $table->id();
             // Nome do produto (name) - string
             $table->string('name');
@@ -21,6 +22,11 @@ return new class extends Migration
             $table->string('code')->unique();
             // quantidade do produto (quantity) - string - default 0
             $table->integer('quantity')->default(0);
+            // observações do produto (obs) - text - pode ser null
+            $table->text('obs')->nullable();
+
+            
+
             $table->timestamps();
         });
     }
