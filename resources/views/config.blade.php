@@ -1,3 +1,9 @@
+@extends('layouts.admin')
+
+@section('title', 'Configurações')
+
+@section('content')
+    
 <h1>aaaaaaaaaaaa</h1>
 
 <!-- GET -->
@@ -26,3 +32,7 @@
 
     <input type="submit" value="Enviar">
 </form>
+
+nome é: {{ $nome }}. Tenho {{ $idade }} anos.<br/> Versão: {{$versao}}
+
+@endsection
