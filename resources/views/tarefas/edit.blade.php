@@ -5,8 +5,10 @@
 @section('content')
     <h1>Edição de tarefas</h1>
 
-    @if (session('warning'))
-        {{session('warning')}}
+    @if ($errors->any())
+        @foreach($errors->all() as $error)
+            {{$error }}<br/>
+        @endforeach
     @endif
 
     <form method="post">

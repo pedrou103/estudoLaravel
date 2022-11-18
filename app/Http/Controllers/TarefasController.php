@@ -21,26 +21,23 @@ class TarefasController extends Controller
 
     public function add()
     {
-
         return view('tarefas.add');
     }
 
     public function addAction(Request $r)
     {
-        if ($r->filled('title')) {
-            $title = $r->input('title');
+        $r->validate([
+            // 'title' => '|' ou
+            'title' => ['required', 'string']
+        ]);
 
-            DB::insert('INSERT INTO tarefas (title) VALUES (:title)', [
-                'title' => $title
-            ]);
+        $title = $r->input('title');
 
-            // $url = route('tarefas.list');
-            return redirect()->route('tarefas.list');
-        } else {
-            return redirect()
-                ->route('tarefas.add')
-                ->with('warning', 'Você não preencheu o title');
-        }
+        DB::insert('INSERT INTO tarefas (title) VALUES (:title)', [
+            'title' => $title
+        ]);
+
+        return redirect()->route('tarefas.list');
     }
 
     public function edit($id)
@@ -60,26 +57,42 @@ class TarefasController extends Controller
 
     public function editAction(Request $r, $id)
     {
-        if ($r->filled('title')) {
-            $title  = $r->input('title');
+        $r->validate([
+            // 'title' => '|' ou
+            'title' => ['required', 'string']
+        ]);
 
-            DB::update('UPDATE tarefas SET title = :title WHERE id = :id', [
-                'id' => $id,
-                'title' => $title
-            ]);
+        $title  = $r->input('title');
 
-            return redirect()->route('tarefas.list');
-        } else {
-            return redirect()
-                ->route('tarefas.edit', ['id' => $id])
-                ->with('warning', 'Você não preencheu o title');
-        }
+        DB::update('UPDATE tarefas SET title = :title WHERE id = :id', [
+            'id' => $id,
+            'title' => $title
+        ]);
+
+        return redirect()->route('tarefas.list');
     }
 
-    public function del()
+    public function del($id)
     {
+        DB::delete('DELETE FROM tarefas WHERE id = :id', [
+            'id' => $id
+        ]);
+
+        return redirect()->route('tarefas.list');
     }
-    public function done()
+
+    public function done($id)
     {
+        // original: 0
+        // 1 - 0 = 1
+
+        // original: 1
+        // 1 - 1 = 0
+
+        DB::update('UPDATE tarefas SET resolvido = 1 - resolvido WHERE id = :id', [
+            'id' => $id
+        ]);
+
+        return redirect()->route('tarefas.list');
     }
 }
