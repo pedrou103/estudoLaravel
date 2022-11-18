@@ -7,11 +7,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'index'] );
 
+Route::get('/login', function() {
+    echo 'Página de login';
+})->name('login');
+
 Route::get('/config', [SiteController::class, 'config'] );
 Route::post('/config', [SiteController::class, 'config'] );
 
 Route::prefix('/tarefas')->group(function() {
-    Route::get('/', [TarefasController::class, 'list'])->name('tarefas.list'); // listagem de tarefas
+    Route::get('/', [TarefasController::class, 'list'])->name('tarefas.list')->middleware('auth'); // listagem de tarefas
 
     Route::get('add', [TarefasController::class, 'add'])->name('tarefas.add'); // tela de adição de nova tarefa
     Route::post('add', [TarefasController::class, 'addAction']); // ação de adição de nova tarefa
