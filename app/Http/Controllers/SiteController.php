@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tarefa;
 
 class SiteController extends Controller
 {
@@ -45,5 +46,22 @@ class SiteController extends Controller
       ];
 
       return view('config', ['nome'=>$nome, 'idade'=>$idade]);
+    }
+
+    public function __invoke()
+    {
+      // $list = Tarefa::all();
+      // $list = Tarefa::find([ 1, 2 ]);
+      // $list = Tarefa::where('resolvido', 0)->get();
+      $list = Tarefa::where('resolvido', 0)->orWhere('resolvido', 1)->first();
+
+      // foreach($list as $item) {
+      //   echo $item->title."<br/>";
+      // }
+
+      // insert:
+      $t = new Tarefa;
+      $t->titulo = 'Testando pelo Eloquent';
+      $t->save();
     }
 }

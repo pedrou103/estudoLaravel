@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\TarefasController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'index'] );
@@ -22,3 +23,15 @@ Route::prefix('/tarefas')->group(function() {
 
     Route::get('marcar/{id}', [TarefasController::class, 'done'])->name('tarefas.done'); //marcar como resolvido ou não.
 });
+
+Route::resource('todo', TodoController::class);
+// rotas que ele cria:
+/*
+GET    - /todo            - index   - todo.index   - lista de itens
+GET    - /todo/create     - create  - todo.create  - form de criação
+POST   - /todo            - store   - todo.store   - receber os dados e add item
+GET    - /todo/{id}       - show    - todo.show    - item individual
+GET    - /todo/{id}/edit  - edit    - todo.edit    - from de edição
+PUT    - /todo/{id}       - update  - todo.update  - receber os dados e update item
+DELETE - /todo/{id}       - destroy - todo.destroy - deletar o item
+*/
